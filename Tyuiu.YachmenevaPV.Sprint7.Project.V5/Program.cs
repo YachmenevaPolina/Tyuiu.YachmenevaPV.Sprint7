@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
 {
     internal static class Program
@@ -10,8 +12,9 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             ApplicationConfiguration.Initialize();
-            Application.Run(new FormMain());
+            Application.Run(new FormMain_YPV());
         }
     }
 }

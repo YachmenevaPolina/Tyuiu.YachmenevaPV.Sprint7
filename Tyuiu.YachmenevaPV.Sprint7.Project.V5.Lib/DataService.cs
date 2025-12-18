@@ -1,32 +1,45 @@
-﻿namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5.Lib
+﻿using System.Text;
+
+namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5.Lib
 {
     public class DataService
     {
         public string[,] LoadFromDataFile(string path)
         {
-            string[] lines = File.ReadAllLines(path);
+            string[] lines;
 
-            if (lines.Length == 0)
-                return new string[0, 0];
+            // 🔹 Определяем кодировку
+            try
+            {
+                lines = File.ReadAllLines(path, Encoding.UTF8);
 
+                if (lines.Any(l => l.Contains("�")))
+                    throw new Exception();
+            }
+            catch
+            {
+                lines = File.ReadAllLines(path, Encoding.GetEncoding(1251));
+            }
+
+            // 🔹 Определяем разделитель
             char separator = lines[0].Contains(';') ? ';' : ',';
 
-            int columns = lines[0].Split(separator).Length;
             int rows = lines.Length;
+            int columns = lines[0].Split(separator).Length;
 
-            string[,] matrix = new string[rows, columns];
+            string[,] data = new string[rows, columns];
 
             for (int i = 0; i < rows; i++)
             {
-                string[] parts = lines[i].Split(separator);
+                string[] values = lines[i].Split(separator);
 
                 for (int j = 0; j < columns; j++)
                 {
-                    matrix[i, j] = j < parts.Length ? parts[j] : string.Empty;
+                    data[i, j] = values[j];
                 }
             }
 
-            return matrix;
+            return data;
         }
 
         public double CalculateSum(double[] values)
@@ -51,3 +64,4 @@
         }
     }
 }
+
