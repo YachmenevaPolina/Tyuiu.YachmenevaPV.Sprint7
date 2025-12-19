@@ -59,13 +59,11 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
 
                 dataGridViewSuppliers_YPV.EnableHeadersVisualStyles = false;
                 dataGridViewSuppliers_YPV.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(200, 230, 235);
-                dataGridViewSuppliers_YPV.ColumnHeadersDefaultCellStyle.Font =
-                    new Font("Segoe UI", 10, FontStyle.Bold);
+                dataGridViewSuppliers_YPV.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 dataGridViewSuppliers_YPV.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
                 dataGridViewSuppliers_YPV.ColumnHeadersHeight = 35;
                 dataGridViewSuppliers_YPV.DefaultCellStyle.ForeColor = Color.Black;
-                dataGridViewSuppliers_YPV.DefaultCellStyle.Font =
-                    new Font("Segoe UI", 10, FontStyle.Regular);
+                dataGridViewSuppliers_YPV.DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Regular);
 
                 dataGridViewSuppliers_YPV.RowHeadersVisible = false;
                 dataGridViewSuppliers_YPV.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -76,12 +74,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ошибка при загрузке файла:\n" + ex.Message,
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ошибка при загрузке файла:\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -93,11 +86,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
 
             try
             {
-                using StreamWriter writer = new StreamWriter(
-                    saveFileDialogSuppliers_YPV.FileName,
-                    false,
-                    Encoding.UTF8
-                );
+                using StreamWriter writer = new StreamWriter(saveFileDialogSuppliers_YPV.FileName, false, Encoding.UTF8);
 
                 for (int i = 0; i < dataGridViewSuppliers_YPV.Rows.Count; i++)
                 {
@@ -108,23 +97,16 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     {
                         writer.Write(dataGridViewSuppliers_YPV.Rows[i].Cells[j].Value);
 
-                        if (j < dataGridViewSuppliers_YPV.Columns.Count - 1)
-                            writer.Write(";");
+                        if (j < dataGridViewSuppliers_YPV.Columns.Count - 1) writer.Write(";");
                     }
                     writer.WriteLine();
                 }
 
-                MessageBox.Show("Файл успешно сохранён", "Информация",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Файл успешно сохранён", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Ошибка при сохранении:\n" + ex.Message,
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Ошибка при сохранении:\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -138,12 +120,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             if (dataGridViewSuppliers_YPV.CurrentRow == null)
                 return;
 
-            var result = MessageBox.Show(
-                "Удалить выбранную строку?",
-                "Подтверждение",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
+            var result = MessageBox.Show("Удалить выбранную строку?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (result == DialogResult.Yes)
             {
@@ -168,7 +145,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     continue;
                 }
 
-                var cellValue = row.Cells[3].Value; // индекс столбца "Месяц поставки"
+                var cellValue = row.Cells[3].Value; // индекс столбца месяц поставки
 
                 row.Visible = cellValue != null && cellValue.ToString() == filterValue;
             }

@@ -60,8 +60,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка загрузки файла:\n{ex.Message}",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка загрузки файла:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -71,13 +70,12 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             {
                 if (chart_YPV.Series.Count == 0)
                 {
-                    MessageBox.Show("Диаграмма не построена",
-                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Диаграмма не построена", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                saveFileDialogChart_YPV.Filter =
-                    "PNG (*.png)|*.png|JPEG (*.jpg)|*.jpg|Bitmap (*.bmp)|*.bmp";
+                saveFileDialogChart_YPV.Filter = "PNG (*.png)|*.png|JPEG (*.jpg)|*.jpg|Bitmap (*.bmp)|*.bmp";
+                
                 saveFileDialogChart_YPV.FileName = "diagram.png";
 
                 if (saveFileDialogChart_YPV.ShowDialog() != DialogResult.OK)
@@ -99,13 +97,13 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     saveFileDialogChart_YPV.FileName,
                     format);
 
-                MessageBox.Show("Диаграмма успешно сохранена",
-                    "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Диаграмма успешно сохранена", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка сохранения диаграммы:\n{ex.Message}",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка сохранения диаграммы:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               
             }
         }
 
@@ -118,15 +116,13 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
         {
             if (dataGridViewChart_YPV.CurrentRow is null)
             {
-                MessageBox.Show("Строка не выбрана",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Строка не выбрана", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
                 return;
             }
 
-            if (MessageBox.Show("Удалить выбранную строку?",
-                "Подтверждение",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("Удалить выбранную строку?", "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                
             {
                 dataGridViewChart_YPV.Rows.Remove(dataGridViewChart_YPV.CurrentRow);
             }
@@ -139,7 +135,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                 chart_YPV.Series.Clear();
                 chart_YPV.Titles.Clear();
 
-                // Категория → список цен
+                // Категория, список цен
                 Dictionary<string, List<double>> categoryPrices = new();
 
                 foreach (DataGridViewRow row in dataGridViewChart_YPV.Rows)
@@ -178,9 +174,9 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     double avg = pair.Value.Average();
                     int pointIndex = series.Points.AddXY(pair.Key, avg);
 
-                    // подпись: Категория + значение
-                    series.Points[pointIndex].Label =
-                        $"{pair.Key}\n{avg:F2}";
+                    // подпись: категория, значение
+                    series.Points[pointIndex].Label = $"{pair.Key}\n{avg:F2}";
+                    
                 }
 
                 chart_YPV.Series.Add(series);
@@ -188,11 +184,8 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    $"Ошибка построения диаграммы:\n{ex.Message}",
-                    "Ошибка",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка построения диаграммы:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
         }
 

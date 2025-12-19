@@ -49,13 +49,11 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     sb.ToString(),
                     Encoding.GetEncoding(1251));
 
-                MessageBox.Show("Файл успешно сохранён",
-                    "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Файл успешно сохранён", "Готово", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка сохранения:\n{ex.Message}",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка сохранения:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -78,18 +76,15 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             {
                 if (row.IsNewRow || !row.Visible) continue;
 
-                if (double.TryParse(
-                    row.Cells[4].Value?.ToString(),
-                    out double value))
+                if (double.TryParse(row.Cells[4].Value?.ToString(), out double value))
+
                 {
                     sum += value;
                     found = true;
                 }
             }
 
-            textBoxSum_YPV.Text = found
-                ? Math.Round(sum, 2).ToString()
-                : "Нет данных";
+            textBoxSum_YPV.Text = found ? Math.Round(sum, 2).ToString() : "Нет данных";
         }
 
         private void buttonAverage_YPV_Click(object sender, EventArgs e)
@@ -110,10 +105,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                 }
             }
 
-            textBoxAverage_YPV.Text = count > 0
-                ? Math.Round(sum / count, 2).ToString()
-                : "Нет данных";
-
+            textBoxAverage_YPV.Text = count > 0 ? Math.Round(sum / count, 2).ToString() : "Нет данных";
         }
 
         private void buttonMin_YPV_Click(object sender, EventArgs e)
@@ -126,9 +118,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                 if (row.IsNewRow || !row.Visible)
                     continue;
 
-                if (double.TryParse(
-                    row.Cells[4].Value?.ToString(),
-                    out double value))
+                if (double.TryParse(row.Cells[4].Value?.ToString(), out double value))
                 {
                     min = Math.Min(min, value);
                     found = true;
@@ -147,18 +137,14 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
             {
                 if (row.IsNewRow || !row.Visible) continue;
 
-                if (double.TryParse(
-                    row.Cells[4].Value?.ToString(),
-                    out double value))
+                if (double.TryParse(row.Cells[4].Value?.ToString(), out double value))
                 {
                     max = Math.Max(max, value);
                     found = true;
                 }
             }
 
-            textBoxMax_YPV.Text = found
-                ? max.ToString()
-                : "Нет данных";
+            textBoxMax_YPV.Text = found ? max.ToString() : "Нет данных";
         }
 
         private void buttonChart_YPV_Click(object sender, EventArgs e)
@@ -175,7 +161,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
 
         private void dataGridViewMain_YPV_CellParsing(object sender, DataGridViewCellParsingEventArgs e)
         {
-            // Колонка "Количество" (индекс 3)
+            // Колонка "Количество" 
             if (e.ColumnIndex != 3)
                 return;
 
@@ -184,10 +170,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
 
             string text = e.Value.ToString()!.Replace(',', '.');
 
-            if (double.TryParse(
-                text,
-                System.Globalization.NumberStyles.Any,
-                System.Globalization.CultureInfo.InvariantCulture,
+            if (double.TryParse(text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture,
                 out double cellValue))
             {
                 e.Value = cellValue;
@@ -222,8 +205,8 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     dataGridViewMain_YPV.Columns[j].HeaderText = gridData[0, j];
                 }
 
-                // ===== Данные (НАЧИНАЕМ С 1!) =====
-                allData.Clear(); // ← ОЧИЩАЕМ ПЕРЕД ЗАГРУЗКОЙ
+                //Данные
+                allData.Clear();
 
                 for (int i = 1; i < rows; i++)
                 {
@@ -235,15 +218,14 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
                     allData.Add(row);
                 }
 
-                // отрисовываем таблицу
+                //таблица
                 ApplyFilterAndSort();
 
                 dataGridViewMain_YPV.AutoResizeColumns();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка открытия файла:\n{ex.Message}",
-                    "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ошибка открытия файла:\n{ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -257,13 +239,12 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
 
                 bool visible = false;
 
-                // Проверяем первые 3 колонки: Код, Название, Категория
+                // проверка первых 3 колонок
                 for (int i = 0; i <= 2; i++)
                 {
                     var cellValue = row.Cells[i].Value?.ToString()?.ToLower();
 
-                    if (!string.IsNullOrEmpty(cellValue) &&
-                        cellValue.Contains(search))
+                    if (!string.IsNullOrEmpty(cellValue) && cellValue.Contains(search))
                     {
                         visible = true;
                         break;
@@ -278,33 +259,32 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5
         {
             IEnumerable<string[]> data = allData;
 
-            // ===== ФИЛЬТР ПО КАТЕГОРИИ =====
+            // фильтр категории
             string category = comboBoxFilt_YPV.SelectedItem?.ToString();
 
             if (!string.IsNullOrEmpty(category) && category != "Все")
             {
-                data = data.Where(r => r[2] == category); // колонка "Категория"
+                data = data.Where(r => r[2] == category); // колонка категория
             }
 
-            // ===== СОРТИРОВКА =====
+            //сортировка
             string sortMode = comboBoxSort_YPV.SelectedItem?.ToString();
             int qtyIndex = 3;
 
             if (sortMode == "Min")
             {
-                data = data.OrderBy(r =>
-                    int.TryParse(r[qtyIndex], out int v) ? v : int.MaxValue);
+                data = data.OrderBy(r => int.TryParse(r[qtyIndex], out int v) ? v : int.MaxValue);
+
             }
             else if (sortMode == "Max")
             {
-                data = data.OrderByDescending(r =>
-                    int.TryParse(r[qtyIndex], out int v) ? v : int.MinValue);
+                data = data.OrderByDescending(r => int.TryParse(r[qtyIndex], out int v) ? v : int.MinValue);
             }
 
-            // ===== ОБНОВЛЕНИЕ ТАБЛИЦЫ =====
+            //обновление
             dataGridViewMain_YPV.Rows.Clear();
-            foreach (var row in data)
-                dataGridViewMain_YPV.Rows.Add(row);
+            foreach (var row in data) dataGridViewMain_YPV.Rows.Add(row);
+
         }
         private void comboBoxFilt_YPV_SelectedIndexChanged_1(object sender, EventArgs e)
         {
