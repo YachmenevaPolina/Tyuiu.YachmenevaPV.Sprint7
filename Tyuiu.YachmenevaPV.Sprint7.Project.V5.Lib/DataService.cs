@@ -8,7 +8,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5.Lib
         {
             string[] lines;
 
-            // 🔹 Определяем кодировку
+            //кодировка
             try
             {
                 lines = File.ReadAllLines(path, Encoding.UTF8);
@@ -21,7 +21,7 @@ namespace Tyuiu.YachmenevaPV.Sprint7.Project.V5.Lib
                 lines = File.ReadAllLines(path, Encoding.GetEncoding(1251));
             }
 
-            // 🔹 Определяем разделитель
+            // разделитель
             char separator = lines[0].Contains(';') ? ';' : ',';
 
             int rows = lines.Length;

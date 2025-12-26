@@ -210,7 +210,6 @@
             // 
             // panel3
             // 
-            panel3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel3.Controls.Add(buttonDoneChart_YPV);
             panel3.Location = new Point(1857, 243);
             panel3.Name = "panel3";
